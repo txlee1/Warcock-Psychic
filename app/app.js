@@ -5,26 +5,34 @@ var app = angular.module("myApp", ["ngRoute"]);
     
     app.controller('myCtrl', function($scope, $http) {
         $scope.user={};
+        $scope.lastQuestion="";
     
         $scope.postQuestion = function() {
             console.log("starting post question")
             console.log("User is "+ $scope.user);
             console.log("User.question is "+ $scope.user.question);
-            $http({
-                method : 'POST',
-                url : '/',
-                data : $scope.user
-            }).then(function(result) {
-                console.log("Post successsful");
-                console.dir(result);
-                myUrl=result.data;
-                window.location = "#!wisdom";
-            }).catch(function() {
-                var vidNum=Math.floor(Math.random()*6);
-                myUrl= urlArray[vidNum];
-                console.log("There is an error posting");
-                window.location = "#!wisdom";
-            });
+            console.log("Last question is "+$scope.lastQuestion);
+            //Ping the server only if the question has changed
+            if (questionHasChanged($scope)){
+                $scope.lastQuestion=""+$scope.user.question;//cache the question asked.
+                $http({
+                    method : 'POST',
+                    url : '/',
+                    data : $scope.user
+                }).then(function(result) {
+                    console.log("Post successsful");
+                    console.dir(result);
+                    myUrl=result.data;
+                    window.location = "#!wisdom";
+                }).catch(function() {
+                    var vidNum=Math.floor(Math.random()*6);
+                    myUrl= urlArray[vidNum];
+                    console.log("There is an error posting");
+                    window.location = "#!wisdom";
+                });
+            }else{
+                console.log("Asked the same question again. Don't change the video");
+            }
     
         }
         
@@ -48,3 +56,7 @@ var app = angular.module("myApp", ["ngRoute"]);
                     return myVideoHTML;}
         });
     });
+
+function questionHasChanged($scope) {
+    return $scope.lastQuestion != $scope.user.question;
+}

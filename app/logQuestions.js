@@ -10,19 +10,7 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 
 app.use(bodyParser.json());
-
-app.get('/', function(req, res){
-    console.log('GET /')
-    var html = fs.readFileSync('index.html');
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(html);
-});
-
-app.get('/Warcock.png', function(req, res){
-    console.log('get Warcock.png')
-    var image = fs.readFileSync('Warcock.png');
-    res.send(image);
-});
+app.use(express.static('.'));
 
 app.post('/', function(req, res){
     console.log('POST /');
