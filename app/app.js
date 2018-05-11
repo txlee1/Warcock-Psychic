@@ -12,6 +12,7 @@ var app = angular.module("myApp", ["ngRoute"]);
             console.log("User is "+ $scope.user);
             console.log("User.question is "+ $scope.user.question);
             console.log("Last question is "+$scope.lastQuestion);
+            $scope.user.questionMessage=""; 
             //Ping the server only if the question has changed
             if (questionHasChanged($scope)){
                 $scope.lastQuestion=""+$scope.user.question;//cache the question asked.
@@ -32,6 +33,7 @@ var app = angular.module("myApp", ["ngRoute"]);
                 });
             }else{
                 console.log("Asked the same question again. Don't change the video");
+                $scope.user.questionMessage=generateMessageForRepeatQuestion();
             }
     
         }
@@ -59,4 +61,12 @@ var app = angular.module("myApp", ["ngRoute"]);
 
 function questionHasChanged($scope) {
     return $scope.lastQuestion != $scope.user.question;
+}
+function generateMessageForRepeatQuestion(){
+    var possibilities=["Want a new answer? Ask a new question!","Stop repeating yourself!", 
+    "Listen loser, I don't have time to answer the same question over and over","I already answered that.",
+    "Same question. Same answer", "Why are you wasting my time with the same question again?",
+     "Why do you repeat yourself so much?","We've done that one already"] ;
+    var selection = Math.floor(Math.random()*possibilities.length);
+    return possibilities[selection];
 }

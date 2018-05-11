@@ -20,6 +20,7 @@ body {
         <input type="text"size="80" spellcheck="true" id="question" name="myInput" ng-model="user.question" placeholder="Ask Your Question" required> 
         <button ng-click="postQuestion()">Get Woke</button> 
     </form>
+    <p>{{user.questionMessage}}</p>
     <div ng-view></div>
 </center>
 </body>
