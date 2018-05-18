@@ -48,7 +48,13 @@ app.listen(server_port, server_ip_address, function () {
 
 /*Global functions and variable*/
 var urlMeaninglessQuestion = ["https://www.youtube.com/embed/BU2dgLYlFRg","https://www.youtube.com/embed/fmdRBDkU3mI", "https://www.youtube.com/embed/IcoZtZpgGcg"];
-var urlMeaningful = ["https://www.youtube.com/embed/raE2wXNfLi0","https://www.youtube.com/embed/tb4NgNoIiLA", "https://www.youtube.com/embed/qRnhsw3ympk", "https://www.youtube.com/embed/r5wa-KzQo2A","https://www.youtube.com/embed/XAAAs44pSPs","https://www.youtube.com/embed/XtjP4fRkREc","https://www.youtube.com/embed/8tTbjyoluSM","https://www.youtube.com/embed/4tmZMjJuyJ0","https://www.youtube.com/embed/UV86Eu1eq3w"];
+
+var urlMeaningful = ["https://www.youtube.com/embed/raE2wXNfLi0","https://www.youtube.com/embed/tb4NgNoIiLA",
+                 "https://www.youtube.com/embed/qRnhsw3ympk", "https://www.youtube.com/embed/r5wa-KzQo2A",
+                 "https://www.youtube.com/embed/XAAAs44pSPs","https://www.youtube.com/embed/XtjP4fRkREc",
+                 "https://www.youtube.com/embed/8tTbjyoluSM","https://www.youtube.com/embed/4tmZMjJuyJ0",
+                 "https://www.youtube.com/embed/UV86Eu1eq3w", "https://www.youtube.com/embed/qG790qyqG9w",
+                 "https://www.youtube.com/embed/t2pRv8byadU", "https://www.youtube.com/embed/ze9dUlA_pKo"];
 
 /* This function randomly selects a video as a response to a bogus question */
 function getResponseToMeaninglessQuestion() {

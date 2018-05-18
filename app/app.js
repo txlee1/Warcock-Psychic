@@ -13,6 +13,12 @@ var app = angular.module("myApp", ["ngRoute"]);
             console.log("User.question is "+ $scope.user.question);
             console.log("Last question is "+$scope.lastQuestion);
             $scope.user.questionMessage=""; 
+            //Make sure they actually ask a question. 
+            if($scope.user.question == null){
+                $scope.user.questionMessage=generateMessageNull(); 
+                window.location = "#!/";
+                return;   
+            }
             //Ping the server only if the question has changed
             if (questionHasChanged($scope)){
                 $scope.lastQuestion=""+$scope.user.question;//cache the question asked.
@@ -67,6 +73,13 @@ function generateMessageForRepeatQuestion(){
     "Listen loser, I don't have time to answer the same question over and over","I already answered that.",
     "Same question. Same answer", "Why are you wasting my time with the same question again?",
      "Why do you repeat yourself so much?","We've done that one already"] ;
+    var selection = Math.floor(Math.random()*possibilities.length);
+    return possibilities[selection];
+}
+function generateMessageNull(){
+    var possibilities=["Ask a question loser!", "You can't get woke if you don't ask a questiion", 
+                        "I feel a loser on my psychic portal. Why don't you ask a question?", "You are wasting my time!",
+                        "You don't seem to get the point of this. Ask a question.","Did you really just do that?"] ;
     var selection = Math.floor(Math.random()*possibilities.length);
     return possibilities[selection];
 }
