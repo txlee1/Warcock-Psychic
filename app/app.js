@@ -1,6 +1,11 @@
+// Whole-script strict mode syntax
+'use strict';
 var app = angular.module("myApp", ["ngRoute"]);
-    var urlArray = ["https://www.youtube.com/embed/raE2wXNfLi0","https://www.youtube.com/embed/tb4NgNoIiLA", "https://www.youtube.com/embed/qRnhsw3ympk", "https://www.youtube.com/embed/r5wa-KzQo2A","https://www.youtube.com/embed/XAAAs44pSPs","https://www.youtube.com/embed/XtjP4fRkREc"];
-    var myUrl="";
+    //These URLS are used only if the server comes back with an error
+    //Otherwise the server tells us which video to play
+    const urlArray = ["https://www.youtube.com/embed/wWq8lL7OzXM","https://www.youtube.com/embed/pvSwaTD3hR0","https://www.youtube.com/embed/raE2wXNfLi0","https://www.youtube.com/embed/tb4NgNoIiLA", "https://www.youtube.com/embed/qRnhsw3ympk", "https://www.youtube.com/embed/r5wa-KzQo2A","https://www.youtube.com/embed/XAAAs44pSPs","https://www.youtube.com/embed/XtjP4fRkREc"];
+    //Current URL to display. Start with nothing. 
+    let myUrl="";
     
     
     app.controller('myCtrl', function($scope, $http) {
@@ -20,6 +25,7 @@ var app = angular.module("myApp", ["ngRoute"]);
                 return;   
             }
             //Ping the server only if the question has changed
+            //Server returns the URL To play
             if (questionHasChanged($scope)){
                 $scope.lastQuestion=""+$scope.user.question;//cache the question asked.
                 $http({
@@ -29,9 +35,13 @@ var app = angular.module("myApp", ["ngRoute"]);
                 }).then(function(result) {
                     console.log("Post successsful");
                     console.dir(result);
+                    //Get the video to play from the server
                     myUrl=result.data;
+                    //Trigger it to show and play
                     window.location = "#!wisdom";
                 }).catch(function() {
+                    //Server came back with an error. Log it but handle seemlessly.
+                    //Pick a random video to play
                     var vidNum=Math.floor(Math.random()*6);
                     myUrl= urlArray[vidNum];
                     console.log("There is an error posting");
